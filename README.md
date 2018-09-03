@@ -1,1 +1,1 @@
-# RANMF
+Matlab implementation of RANMF algorithm
