@@ -87,10 +87,10 @@ toc;
 
 % for others
 jaccard = PSJaccard(predict_label, true_label); % jaccard 
-% nmi = PSNMI(predict_label, true_label) % nmi
+nmi = PSNMI(predict_label, true_label) % nmi
 predicted = bestMap(true_label, predict_label);
 accuracy = sum(predicted == true_label)/length(predicted); % accuracy
-table(jaccard, accuracy, 'RowNames', {'ANMF_SVD'})
+table(jaccard, nmi, accuracy, 'RowNames', {'ANMF_SVD'})
 
 
 
