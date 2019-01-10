@@ -2,22 +2,19 @@ clear;
 close all;
 clc;
 
-% set the seed for reproducibility 
-rng(42);
-
 %% choose the dataset
 [parentdir,~,~] = fileparts(pwd);
 
-% benchmark
-community = load(fullfile(parentdir, '/benchmark/community3.dat'));
-edges = load(fullfile(parentdir, '/benchmark/network3.dat'));
-true_label = community(:,2);
-N = size(community,1);
-A = zeros(N,N);
-for i = 1:size(edges,1)
-    A(edges(i,1),edges(i,2)) = 1;
-end
-r = length(unique(true_label));
+% % benchmark
+% community = load(fullfile(parentdir, '/benchmark/community3.dat'));
+% edges = load(fullfile(parentdir, '/benchmark/network3.dat'));
+% true_label = community(:,2);
+% N = size(community,1);
+% A = zeros(N,N);
+% for i = 1:size(edges,1)
+%     A(edges(i,1),edges(i,2)) = 1;
+% end
+% r = length(unique(true_label));
 
 % % pcn
 % A = load(fullfile(parentdir, '/data/pcn_adj_mat.txt'));
