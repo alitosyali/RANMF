@@ -7,8 +7,8 @@ clc
 [parentdir,~,~] = fileparts(pwd);
 
 % % benchmark
-% community = load(fullfile(parentdir, '/benchmark/community1.dat'));
-% edges = load(fullfile(parentdir, '/benchmark/network1.dat'));
+% community = load(fullfile(parentdir, 'benchmark/community1.dat'));
+% edges = load(fullfile(parentdir, 'benchmark/network1.dat'));
 % true_label = community(:,2);
 % N = size(community,1);
 % A = zeros(N,N);
@@ -20,7 +20,7 @@ clc
 
 % % pcn
 % A = load(fullfile(parentdir, '/data/pcn_adj_mat.txt'));
-% r = 20;
+% r = 2;
 % num_iter = 100;
 
 % % cornell
@@ -41,11 +41,11 @@ clc
 % num_iter = 100;
 % r = 5;
 
-% texas
-A = load(fullfile(parentdir, '/data/texas_adj_mat.txt'));
-true_label = load(fullfile(parentdir, '/data/texas_labels.txt'));
-num_iter = 100;
-r = 5;
+% % texas
+% A = load(fullfile(parentdir, '/data/texas_adj_mat.txt'));
+% true_label = load(fullfile(parentdir, '/data/texas_labels.txt'));
+% num_iter = 100;
+% r = 5;
 
 %% iterative algorithm
 tic;
@@ -79,16 +79,18 @@ E = diag(sum(X,1));
 W = X/E;
 [~,predict_label] = max(W,[],2);
 toc;
-% pcn
+
+% % for pcn
 % quality_score = QFDistBased(predict_label, A);
-% table(quality_score, 'RowNames', {'ANMF_SVD'})
+% [db_score] = db_index(A, predict_label);
+% table(db_score, quality_score, 'RowNames', {'RANMF'})
 
 % for others
 jaccard = PSJaccard(predict_label, true_label); % jaccard 
-nmi = PSNMI(predict_label, true_label); % nmi
+% nmi = PSNMI(predict_label, true_label) % nmi
 predicted = bestMap(true_label, predict_label);
 accuracy = sum(predicted == true_label)/length(predicted); % accuracy
-table(jaccard, nmi, accuracy, 'RowNames', {'ANMF_SVD'})
+table(jaccard, accuracy, 'RowNames', {'ANMF_SVD'})
 
 
 
