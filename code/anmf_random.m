@@ -7,8 +7,8 @@ clc
 [parentdir,~,~] = fileparts(pwd);
 
 % % benchmark
-% community = load(fullfile(parentdir, '\benchmark\community3.dat'));
-% edges = load(fullfile(parentdir, '\benchmark\network3.dat'));
+% community = load(fullfile(parentdir, '/benchmark/community1.dat'));
+% edges = load(fullfile(parentdir, '/benchmark/network1.dat'));
 % true_label = community(:,2);
 % N = size(community,1);
 % A = zeros(N,N);
@@ -21,7 +21,7 @@ clc
 
 % % pcn
 % A = load(fullfile(parentdir, '/data/pcn_adj_mat.txt'));
-% r = 20;
+% r = 2;
 % num_iter = 100;
 % num_runs = 100;
 
@@ -46,12 +46,12 @@ clc
 % num_runs = 100;
 % r = 5;
 
-% texas
-A = load(fullfile(parentdir, '/data/texas_adj_mat.txt'));
-true_label = load(fullfile(parentdir, '/data/texas_labels.txt'));
-num_iter = 100;
-num_runs = 100;
-r = 5;
+% % texas
+% A = load(fullfile(parentdir, '/data/texas_adj_mat.txt'));
+% true_label = load(fullfile(parentdir, '/data/texas_labels.txt'));
+% num_iter = 100;
+% num_runs = 100;
+% r = 5;
 
 %% iterative algorithm
 
@@ -90,10 +90,10 @@ for run = 1:num_runs
     W = X/E;
     [~,predict_label] = max(W,[],2);
     
+    %     quality_score(run) = QFDistBased(predict_label, A);
+%     quality_score(run) = db_index(A, predict_label);
+    
     if length(unique(predict_label)) == length(unique(true_label))
-        %     quality_score(run) = QFDistBased(predict_label, A);
-        %     quality_score(run) = db_index(A, predict_label);
-        
         quality_score(1, run) = PSJaccard(predict_label, true_label); % jaccard
         quality_score(2, run) = PSNMI(predict_label, true_label); % nmi
         predicted = bestMap(true_label, predict_label);
@@ -101,6 +101,7 @@ for run = 1:num_runs
     end
 end
 toc;
+
 % % for pcn
 % db_score = mean(quality_score);
 % table(db_score, 'RowNames', {'ANMF'})
